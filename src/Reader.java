@@ -28,18 +28,18 @@ public class Reader
             if(!scan.nextLine().equals(divider)) //Wenn nächste Line nicht '#####' oder REPLY ist.
             {
                 //Zeilen jeweils in Strings speichern
-                String space1 = scan.nextLine();
+                scan.next();
                 String type = scan.nextLine();
                 String user = scan.nextLine();
                 String userURL = scan.nextLine();
-                String space2 = scan.nextLine();
-                String videoURL = scan.nextLine();
+                scan.next();
+                scan.next();
                 String stats = scan.nextLine();
                 String comment = scan.nextLine(); //Fall von Zeilenübergreifenden Kommentaren nicht berücksichtigt
-                String space3 = scan.nextLine();
-                //TODO: Relevante Strings in ein Array speichern.
-
-                //String-Array in ArrayList speichern
+                scan.next();
+                
+                String[] finalStrings = {type, user, userURL, stats, comment};
+                commentList.add(finalStrings);
 
             }
             else if(true) //Fall: Reply
