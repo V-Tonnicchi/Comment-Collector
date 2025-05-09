@@ -25,7 +25,7 @@ public class Reader
         //do:
         do
         {
-            if(!scan.nextLine().equals(divider)) //Wenn nächste Line nicht '#####' oder REPLY ist.
+            if(!scan.nextLine().equals(divider) && !scan.nextLine().equals("Replies:")) //Wenn nächste Line nicht '#####' oder REPLY ist.
             {
                 //Zeilen jeweils in Strings speichern
                 scan.next();
@@ -36,16 +36,22 @@ public class Reader
                 scan.next();
                 String stats = scan.nextLine();
                 String comment = scan.nextLine(); //Fall von Zeilenübergreifenden Kommentaren nicht berücksichtigt
+                if(!scan.next().equals("\s"))
+                {
+                    while(!scan.next().equals("\s"))
+                    {
+                        comment = comment + " " + scan.next();
+                    }
+                }
                 scan.next();
-                
+
                 String[] finalStrings = {type, user, userURL, stats, comment};
                 commentList.add(finalStrings);
 
             }
-            else if(true) //Fall: Reply
+            else if(!scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
             {
-                //TODO
-                //Eventuell seperate methode für übersichtlichekeit?
+                
             }
         scan.next();    
         }while(scan.hasNextLine());
