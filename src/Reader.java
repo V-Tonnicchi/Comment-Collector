@@ -7,7 +7,7 @@ public class Reader
 {
     String divider = "#####";
     String txtFile;
-    ArrayList<String[]> commentList;
+    ArrayList<String[]> commentList = new ArrayList<>();
 
     public Reader(String src)
     {
@@ -35,12 +35,12 @@ public class Reader
                 scan.next();
                 scan.next();
                 String stats = scan.nextLine();
-                String comment = scan.nextLine(); //Fall von Zeilenübergreifenden Kommentaren nicht berücksichtigt
-                if(!scan.next().equals("\s"))
+                String comment = scan.nextLine();
+                if(!scan.nextLine().equals("\s"))
                 {
-                    while(!scan.next().equals("\s"))
+                    while(!scan.nextLine().equals("\s"))
                     {
-                        comment = comment + " " + scan.next();
+                        comment = comment + " " + scan.nextLine();  
                     }
                 }
                 scan.next();
@@ -51,7 +51,25 @@ public class Reader
             }
             else if(!scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
             {
-                
+                scan.next();
+                String type = scan.nextLine();
+                String user = scan.nextLine();
+                String userURL = scan.nextLine();
+                scan.next();
+                scan.next();
+                String stats = scan.nextLine();
+                String comment = scan.nextLine();
+                if(!scan.next().equals("\s"))
+                {
+                    while(!scan.nextLine().equals("\s"))
+                    {
+                        comment = comment + " " + scan.next();
+                    }
+                }
+                scan.next();
+
+                String[] finalStrings = {type, user, userURL, stats, comment};
+                commentList.add(finalStrings);
             }
         scan.next();    
         }while(scan.hasNextLine());
