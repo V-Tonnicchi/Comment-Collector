@@ -40,13 +40,14 @@ public class Reader
                 {
                     while(!scan.nextLine().equals("\s"))
                     {
-                        comment = comment + " " + scan.nextLine();  
+                        comment = comment + " " + scan.next();  
                     }
                 }
                 scan.next();
 
                 String[] finalStrings = {type, user, userURL, stats, comment};
-                commentList.add(finalStrings);
+                System.out.println(finalStrings.toString());
+                //commentList.add(finalStrings);
 
             }
             else if(!scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
