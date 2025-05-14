@@ -7,7 +7,7 @@ public class Reader
 {
     String divider = "#####";
     String txtFile;
-    ArrayList<String[]> commentList;
+    ArrayList<String[]> commentList = new ArrayList<>();
 
     public Reader(String src)
     {
@@ -17,7 +17,6 @@ public class Reader
     public void ReadComments() throws FileNotFoundException
     {
         Scanner scan = new Scanner(new File(txtFile));
-        // TODO: Logik für das seperieren der comments in Array
         for(int i = 0; i < 10; i++)
         {
             scan.next();
@@ -25,30 +24,59 @@ public class Reader
         //do:
         do
         {
-            if(!scan.nextLine().equals(divider)) //Wenn nächste Line nicht '#####' oder REPLY ist.
+            String tokenMain = scan.nextLine();
+            if(!tokenMain.equals(divider) && !tokenMain.equals("Replies:")) //Wenn nächste Line nicht '#####' oder REPLY ist.
             {
                 //Zeilen jeweils in Strings speichern
-                String space1 = scan.nextLine();
+                scan.next();
                 String type = scan.nextLine();
                 String user = scan.nextLine();
                 String userURL = scan.nextLine();
-                String space2 = scan.nextLine();
-                String videoURL = scan.nextLine();
+                scan.next();
+                scan.next();
                 String stats = scan.nextLine();
-                String comment = scan.nextLine(); //Fall von Zeilenübergreifenden Kommentaren nicht berücksichtigt
-                String space3 = scan.nextLine();
-                //TODO: Relevante Strings in ein Array speichern.
+                String comment = scan.nextLine();
+                    
+                while (scan.hasNext()) 
+                {
+                        String token = scan.next();
+                        if (token.equals("Replies:") || token.equals(divider)) 
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            comment = comment + " " + scan.next(); 
+                        }
+                    }
 
-                //String-Array in ArrayList speichern
+                String[] finalStrings = {type, user, userURL, stats, comment};
+                commentList.add(finalStrings);
 
             }
-            else if(true) //Fall: Reply
+            else if(scan.hasNext() && !scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
             {
-                //TODO
-                //Eventuell seperate methode für übersichtlichekeit?
+                scan.next();
+                String type = scan.nextLine();
+                String user = scan.nextLine();
+                String userURL = scan.nextLine();
+                scan.next();
+                scan.next();
+                String stats = scan.nextLine();
+                String comment = scan.nextLine();
+                if(!scan.next().equals("\s"))
+                {
+                    while(scan.hasNext() && !scan.next().equals(divider))
+                    {
+                        comment = comment + " " + scan.next();
+                    }
+                }
+                scan.next();
+
+                String[] finalStrings = {type, user, userURL, stats, comment};
+                commentList.add(finalStrings);
             }
-        scan.next();    
-        }while(scan.hasNextLine());
+        }while(scan.hasNext());
         //Solange File eine nächste Line hat
         scan.close();
     }
