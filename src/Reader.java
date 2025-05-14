@@ -17,7 +17,6 @@ public class Reader
     public void ReadComments() throws FileNotFoundException
     {
         Scanner scan = new Scanner(new File(txtFile));
-        // TODO: Logik für das seperieren der comments in Array
         for(int i = 0; i < 10; i++)
         {
             scan.next();
