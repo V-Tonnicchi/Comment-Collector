@@ -6,7 +6,7 @@ public class App
     static Writer writer;
     public static void main(String[] args) throws Exception 
     {
-        init("C:\\Users\\vtonn\\Documents\\Comment Scraper\\recources\\Comments, (147) Mutant - YouTube (235).txt");
+        init("resources\\Comments, Rock Lobster - YouTube (584).txt");
         reader.ReadComments();
         ArrayList<String[]> commentlist = reader.commentList;
         System.out.println(commentlist.toString());

@@ -25,7 +25,8 @@ public class Reader
         //do:
         do
         {
-            if(!scan.nextLine().equals(divider) && !scan.nextLine().equals("Replies:")) //Wenn nächste Line nicht '#####' oder REPLY ist.
+            String tokenMain = scan.nextLine();
+            if(!tokenMain.equals(divider) && !tokenMain.equals("Replies:")) //Wenn nächste Line nicht '#####' oder REPLY ist.
             {
                 //Zeilen jeweils in Strings speichern
                 scan.next();
@@ -36,21 +37,25 @@ public class Reader
                 scan.next();
                 String stats = scan.nextLine();
                 String comment = scan.nextLine();
-                if(!scan.nextLine().equals("\s"))
+                    
+                while (scan.hasNext()) 
                 {
-                    while(!scan.nextLine().equals("\s"))
-                    {
-                        comment = comment + " " + scan.next();  
+                        String token = scan.next();
+                        if (token.equals("Replies:") || token.equals(divider)) 
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            comment = comment + " " + scan.next(); 
+                        }
                     }
-                }
-                scan.next();
 
                 String[] finalStrings = {type, user, userURL, stats, comment};
-                System.out.println(finalStrings.toString());
-                //commentList.add(finalStrings);
+                commentList.add(finalStrings);
 
             }
-            else if(!scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
+            else if(scan.hasNext() && !scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
             {
                 scan.next();
                 String type = scan.nextLine();
@@ -62,7 +67,7 @@ public class Reader
                 String comment = scan.nextLine();
                 if(!scan.next().equals("\s"))
                 {
-                    while(!scan.nextLine().equals("\s"))
+                    while(scan.hasNext() && !scan.next().equals(divider))
                     {
                         comment = comment + " " + scan.next();
                     }
@@ -72,8 +77,7 @@ public class Reader
                 String[] finalStrings = {type, user, userURL, stats, comment};
                 commentList.add(finalStrings);
             }
-        scan.next();    
-        }while(scan.hasNextLine());
+        }while(scan.hasNext());
         //Solange File eine nächste Line hat
         scan.close();
     }
