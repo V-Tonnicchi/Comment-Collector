@@ -10,6 +10,7 @@ public class App
         reader.ReadComments();
         ArrayList<String[]> commentlist = reader.commentList;
         System.out.println(commentlist.toString());
+        System.out.println(commentlist.size());
         //writer.ExcelWrite(commentlist);
     }
 

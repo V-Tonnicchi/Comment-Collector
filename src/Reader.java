@@ -54,8 +54,9 @@ public class Reader
                 commentList.add(finalStrings);
 
             }
-            else if(scan.hasNext() && !scan.nextLine().equals(divider) && scan.nextLine().equals("Replies:")) //Fall: Reply
+            else if(scan.hasNext() && !tokenMain.equals(divider) && tokenMain.equals("Replies:")) //Fall: Reply
             {
+
                 scan.next();
                 String type = scan.nextLine();
                 String user = scan.nextLine();
